@@ -8,3 +8,7 @@
   $> bower install
   ```
 3. Open index.html in the browser
+
+## Resources
+* [Foursquare API](https://developer.foursquare.com/)
+* [Latitude/Longitude Finder](https://mynasadata.larc.nasa.gov/latitudelongitude-finder/)

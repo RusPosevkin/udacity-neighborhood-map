@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Udacity Neighborhood Map</title>
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <button data-bind="click: addValue">Add value</button>
+    <button data-bind="click: reset">Reset</button>
+    <div>
+			<ul data-bind="foreach: data">
+				<li data-bind="text: $data"></li>
+			</ul>
+		</div>
+  </body>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/underscore/underscore-min.js"></script>
+  <script src="bower_components/knockout/dist/knockout.js"></script>
+  <script src="js/app.js"></script>
+</html>

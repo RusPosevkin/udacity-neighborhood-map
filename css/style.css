@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+}
+
+.search {
+  height: 10vh;
+  border: 0;
+  width: 100%;
+  font-size: 4.0vh;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;;
+}
+
+.map {
+  height: 90vh;
+  width: 75%;
+}
+
+.locations {
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.location-item {
+  cursor: pointer;
+  padding-left: 5%;
+  background-color: #a3ccff;
+  list-style-type: none;
+  font-size: 3.0vh;
+  padding: 2vh 0;
+  text-align: center;
+}

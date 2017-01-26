@@ -1,7 +1,7 @@
 var CLIENT_ID = '0V5NAVXIRLYN3O5OYPYKNRYOZFO2PGIFR5NELPVX3YONN334';
 var CLIENT_SECRET = 'VYNNTIJVZYE1X2FHZ32XOOT0AK0QLDBZ53OLUZHXADXOXAAM';
 
-var locationsList = [
+var initData = [
   {
     title: 'Saint Isaac\'s Cathedral',
     lat: 59.936378,
@@ -39,28 +39,62 @@ var locationsList = [
   }
 ];
 
-locationsList.forEach(function(item) {
+var map;
+
+onGMapsError = function() {
+  console.error('There was an error occured with the Google Maps. Please try again later.');
+};
+
+var Location = function(params) {
+  var self = this;
+
+  this.title = ko.observable(params.title);
+  self.titleRU = ko.observable();
+  self.category = ko.observable();
+  self.categoryIcon = ko.observable();
+  self.address = ko.observable();
+  self.checkinsCount = ko.observable();
+  self.usersCount = ko.observable();
+  self.tipCount = ko.observable();
+
   var url = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll='
-    + item.lat + ',' + item.long + '&intent=global&query=' + item.title
+    + params.lat + ',' + params.long + '&intent=global&query=' + params.title
     + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET;
 
   $.getJSON(url).done(function(data) {
-    console.log(data.response.venues[0]);
+    var data = data.response.venues[0];
+    var category = data.categories[0];
+    // https://developer.foursquare.com/docs/responses/category
+    var iconSize = 32;
+
+    self.titleRU(data.name);
+    self.category(category.shortName);
+    self.categoryIcon(category.icon.prefix + iconSize + category.icon.suffix);
+    self.address(data.location.formattedAddress.join(', '));
+    self.checkinsCount(data.stats.checkinsCount);
+    self.usersCount(data.stats.usersCount);
+    self.tipCount(data.stats.tipCount);
   }).fail(function() {
     console.error('There was an error occured with the Foursquare API. Please try again later.');
   });
-})
-
-var AppViewModel = function() {
-    this.data = ko.observableArray(['foo', 'bar']);
-
-    this.addValue = function() {
-        this.data.push('additional value');
-    };
-
-    this.reset = function() {
-        this.data(['foo', 'bar']);
-    };
 };
 
-ko.applyBindings(new AppViewModel());
+var AppViewModel = function() {
+  var self = this;
+
+  this.locationsList = ko.observableArray();
+  this.searchText = ko.observable('');
+
+  initData.forEach(function(datum) {
+    self.locationsList.push(new Location(datum));
+  });
+
+  map = new google.maps.Map(document.getElementById('mapDiv'), {
+    center: { lat: 59.942803, lng: 30.324841 },
+    zoom: 12
+  });
+};
+
+function init() {
+  ko.applyBindings(new AppViewModel());
+};

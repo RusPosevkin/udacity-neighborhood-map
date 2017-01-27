@@ -2,7 +2,7 @@ body {
   margin: 0;
 }
 
-.search {
+.filter {
   height: 10vh;
   border: 0;
   width: 90%;
@@ -11,6 +11,7 @@ body {
   box-sizing: border-box;
   outline: none;
 }
+
 .foursquare-info {
   font-size: 12px;
   text-align: right;

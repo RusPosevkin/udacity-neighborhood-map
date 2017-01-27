@@ -49,6 +49,7 @@ var Location = function(params) {
   var self = this;
 
   this.title = ko.observable(params.title);
+  this.searchTitle = ko.observable(params.title.toLowerCase());
   this.titleRU = ko.observable();
   this.category = ko.observable();
   this.categoryIcon = ko.observable();
@@ -82,8 +83,8 @@ var Location = function(params) {
 var AppViewModel = function() {
   var self = this;
 
-  this.locationsList = ko.observableArray();
   this.searchText = ko.observable('');
+  this.locationsList = ko.observableArray();
 
   initData.forEach(function(datum) {
     self.locationsList.push(new Location(datum));
@@ -92,6 +93,12 @@ var AppViewModel = function() {
   this.selectLocation = function(location) {
     console.log(location.title());
   };
+
+  this.filteredList = ko.computed(function() {
+    return this.locationsList().filter(function(location) {
+      return location.searchTitle().indexOf(this.searchText().toLowerCase()) !== -1;
+    }, this);
+  }, this);
 
   map = new google.maps.Map(document.getElementById('mapDiv'), {
     center: { lat: 59.942803, lng: 30.324841 },

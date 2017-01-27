@@ -5,37 +5,37 @@ var initData = [
   {
     title: 'Saint Isaac\'s Cathedral',
     lat: 59.936378,
-    long: 30.30223
+    lng: 30.30223
   },
   {
     title: 'Bronze Horseman',
     lat: 59.933905,
-    long: 30.306485
+    lng: 30.306485
   },
   {
     title: 'Church of the Savior on Blood',
     lat: 59.940100,
-    long: 30.3289
+    lng: 30.3289
   },
   {
     title: 'Hermitage Museum',
     lat: 59.939832,
-    long: 30.31456
+    lng: 30.31456
   },
   {
     title: 'Rostral Columns',
     lat: 59.944682,
-    long: 30.304971
+    lng: 30.304971
   },
   {
     title: 'Kazan Cathedral',
     lat: 59.934209,
-    long: 30.316672
+    lng: 30.316672
   },
   {
     title: 'Peter and Paul Fortress',
     lat: 59.950002,
-    long: 30.324571
+    lng: 30.324571
   }
 ];
 
@@ -49,16 +49,16 @@ var Location = function(params) {
   var self = this;
 
   this.title = ko.observable(params.title);
-  self.titleRU = ko.observable();
-  self.category = ko.observable();
-  self.categoryIcon = ko.observable();
-  self.address = ko.observable();
-  self.checkinsCount = ko.observable();
-  self.usersCount = ko.observable();
-  self.tipCount = ko.observable();
+  this.titleRU = ko.observable();
+  this.category = ko.observable();
+  this.categoryIcon = ko.observable();
+  this.address = ko.observable();
+  this.checkinsCount = ko.observable();
+  this.usersCount = ko.observable();
+  this.tipCount = ko.observable();
 
   var url = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll='
-    + params.lat + ',' + params.long + '&intent=global&query=' + params.title
+    + params.lat + ',' + params.lng + '&intent=global&query=' + params.title
     + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET;
 
   $.getJSON(url).done(function(data) {
@@ -88,6 +88,10 @@ var AppViewModel = function() {
   initData.forEach(function(datum) {
     self.locationsList.push(new Location(datum));
   });
+
+  this.selectLocation = function(location) {
+    console.log(location.title());
+  };
 
   map = new google.maps.Map(document.getElementById('mapDiv'), {
     center: { lat: 59.942803, lng: 30.324841 },

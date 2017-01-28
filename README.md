@@ -1,16 +1,7 @@
 ## Udacity Neighborhood Map project
 
 ## How to start
-1. Clone this repository https://github.com/RusPosevkin/udacity-neighborhood-map.git
-
-2. Install dependencies
-  ```bash
-  $> bower install
-  ```
-3. Open index.html in the browser
-
-## Attribution
-Project using Foursquare API to get location information.
+1. Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 
 ## Resources
 * [Foursquare API](https://developer.foursquare.com/)

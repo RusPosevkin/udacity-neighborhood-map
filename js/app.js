@@ -29,13 +29,13 @@ var initData = [
   },
   {
     title: 'Kazan Cathedral',
-    lat: 59.934209,
-    lng: 30.316672
+    lat: 59.9341891,
+    lng: 30.3244829
   },
   {
     title: 'Peter and Paul Fortress',
-    lat: 59.950002,
-    lng: 30.324571
+    lat: 59.9499162,
+    lng: 30.3172042
   }
 ];
 

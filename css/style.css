@@ -100,6 +100,7 @@ body {
   cursor: pointer;
   z-index: 3;
   width: 100px;
+  border-radius: 5px;
 }
 
 .menu-text {

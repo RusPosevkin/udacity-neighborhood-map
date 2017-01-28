@@ -57,6 +57,7 @@ var Location = function(params) {
   this.checkinsCount = ko.observable();
   this.usersCount = ko.observable();
   this.tipCount = ko.observable();
+  this.isHidden = ko.observable();
 
   var url = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll='
     + params.lat + ',' + params.lng + '&intent=global&query=' + params.title
@@ -78,6 +79,22 @@ var Location = function(params) {
   }).fail(function() {
     console.error('There was an error occured with the Foursquare API. Please try again later.');
   });
+
+	this.marker = new google.maps.Marker({
+    map: map,
+    position: new google.maps.LatLng(params.lat, params.lng),
+    title: self.title()
+  });
+
+  this.setMarker = ko.computed(function() {
+    if(self.isHidden()) {
+      self.marker.setMap(null);
+    } else {
+      self.marker.setMap(map);
+    }
+
+    return true;
+  });
 };
 
 var AppViewModel = function() {
@@ -86,8 +103,15 @@ var AppViewModel = function() {
   this.searchText = ko.observable('');
   this.locationsList = ko.observableArray();
 
+  map = new google.maps.Map(document.getElementById('mapDiv'), {
+    center: { lat: 59.942803, lng: 30.324841 },
+    zoom: 13
+  });
+
   initData.forEach(function(datum) {
-    self.locationsList.push(new Location(datum));
+    var location = new Location(datum);
+    location.isHidden(false);
+    self.locationsList.push(location);
   });
 
   this.selectLocation = function(location) {
@@ -96,14 +120,13 @@ var AppViewModel = function() {
 
   this.filteredList = ko.computed(function() {
     return this.locationsList().filter(function(location) {
-      return location.searchTitle().indexOf(this.searchText().toLowerCase()) !== -1;
+      var isMatched = location.searchTitle().indexOf(this.searchText().toLowerCase()) !== -1;
+      location.isHidden(!isMatched);
+
+      return isMatched;
     }, this);
   }, this);
 
-  map = new google.maps.Map(document.getElementById('mapDiv'), {
-    center: { lat: 59.942803, lng: 30.324841 },
-    zoom: 12
-  });
 };
 
 function init() {

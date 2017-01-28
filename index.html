@@ -7,16 +7,30 @@
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
+    <input type="checkbox" id="hamburger" class="hidden-menu-ticker">
+    
+    <label class="btn-menu" for="hamburger">
+      <div class="hamburger">
+        <span class="first"></span>
+        <span class="second"></span>
+        <span class="third"></span>
+      </div>
+      <div class="menu-text">Filters</div>
+    </label>
+
+    <aside class="hidden-menu">
       <input class="filter" placeholder="Filter locations" data-bind="textInput: searchText, valueUpdate: 'afterkeydown'">
-      <span class="foursquare-info">Data source: Foursquare</span>
-    </div>
-    <div class="container">
       <ul class="locations" data-bind="foreach: filteredList">
         <li class="location-item" data-bind="text: $data.title, click: selectLocation"></li>
       </ul>
-      <div id="mapDiv" class="map"></div>
-    </div>
+    </aside>
+
+    <aside class="foursquare-info">
+      <div>Data source:</div>
+      <div>Foursquare</div>
+    </aside>
+
+    <main id="mapDiv" class="map"></main>
   </body>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/underscore/underscore-min.js"></script>

@@ -165,7 +165,6 @@ var AppViewModel = function() {
       return isMatched;
     }, this);
   }, this);
-
 };
 
 function init() {

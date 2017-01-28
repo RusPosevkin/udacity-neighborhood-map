@@ -40,6 +40,7 @@ var initData = [
 ];
 
 var map;
+var openedInfoWindow;
 
 onGMapsError = function() {
   console.error('There was an error occured with the Google Maps. Please try again later.');
@@ -93,6 +94,11 @@ var Location = function(params) {
   });
 
   this.marker.addListener('click', function() {
+    // close opened infoWindow
+    if (openedInfoWindow) {
+      openedInfoWindow.close();
+    }
+
     var infoWindowContentData = [
       '<div class="info-window">',
         '<h4>', self.title(), '</h4>',
@@ -109,9 +115,14 @@ var Location = function(params) {
       '</div>'
     ];
     var infoWindow = new google.maps.InfoWindow({ content: infoWindowContentData.join('') });
+    openedInfoWindow = infoWindow;
 
     infoWindow.open(map, self.marker);
   });
+
+  this.selectLocation = function() {
+    google.maps.event.trigger(self.marker, 'click');
+  };
 };
 
 var AppViewModel = function() {
@@ -122,7 +133,7 @@ var AppViewModel = function() {
 
   map = new google.maps.Map(document.getElementById('mapDiv'), {
     center: { lat: 59.942803, lng: 30.324841 },
-    zoom: 13
+    zoom: 14
   });
 
   initData.forEach(function(datum) {
@@ -130,10 +141,6 @@ var AppViewModel = function() {
     location.isHidden(false);
     self.locationsList.push(location);
   });
-
-  this.selectLocation = function(location) {
-    console.log(location.title());
-  };
 
   this.filteredList = ko.computed(function() {
     return this.locationsList().filter(function(location) {

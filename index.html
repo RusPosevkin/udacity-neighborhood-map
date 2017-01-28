@@ -12,10 +12,10 @@
       <span class="foursquare-info">Data source: Foursquare</span>
     </div>
     <div class="container">
-      <div id="mapDiv" class="map"></div>
       <ul class="locations" data-bind="foreach: filteredList">
         <li class="location-item" data-bind="text: $data.title, click: $parent.selectLocation"></li>
       </ul>
+      <div id="mapDiv" class="map"></div>
     </div>
   </body>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>

@@ -26,6 +26,7 @@ body {
 .map {
   height: 90vh;
   width: 75%;
+  text-align: center;
 }
 
 .locations {
@@ -46,4 +47,10 @@ body {
   font-size: 3.0vh;
   padding: 2vh 0;
   text-align: center;
+}
+
+
+.info-window > h4 {
+  margin: 0;
+  display: block;
 }

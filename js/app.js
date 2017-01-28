@@ -40,7 +40,8 @@ var initData = [
 ];
 
 var map;
-var openedInfoWindow;
+var openedInfoWindow = null;
+var lastClickedMarker = null;
 
 onGMapsError = function() {
   console.error('There was an error occured with the Google Maps. Please try again later.');
@@ -99,6 +100,15 @@ var Location = function(params) {
       openedInfoWindow.close();
     }
 
+    var cancelAnimation = function() {
+      lastClickedMarker.setAnimation(null);
+      lastClickedMarker = null;
+    };
+
+    if (lastClickedMarker) {
+      cancelAnimation();
+    }
+
     var infoWindowContentData = [
       '<div class="info-window">',
         '<h4>', self.title(), '</h4>',
@@ -118,11 +128,16 @@ var Location = function(params) {
     openedInfoWindow = infoWindow;
 
     infoWindow.open(map, self.marker);
+    self.marker.setAnimation(google.maps.Animation.BOUNCE);
+    lastClickedMarker = self.marker;
+
+    google.maps.event.addListener(infoWindow, 'closeclick', cancelAnimation);
   });
 
   this.selectLocation = function() {
     google.maps.event.trigger(self.marker, 'click');
   };
+
 };
 
 var AppViewModel = function() {

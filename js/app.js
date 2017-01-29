@@ -3,12 +3,12 @@ var CLIENT_SECRET = 'VYNNTIJVZYE1X2FHZ32XOOT0AK0QLDBZ53OLUZHXADXOXAAM';
 
 var initData = [
   {
-    title: 'Saint Isaac\'s Cathedral',
+    title: 'Bronze Horseman',
     lat: 59.936378,
     lng: 30.30223
   },
   {
-    title: 'Bronze Horseman',
+    title: 'Saint Isaac\'s Cathedral',
     lat: 59.933905,
     lng: 30.306485
   },

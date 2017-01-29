@@ -44,21 +44,14 @@ var openedInfoWindow = null;
 var lastClickedMarker = null;
 
 onGMapsError = function() {
-  console.error('There was an error occured with the Google Maps. Please try again later.');
+  alert('There was an error occured with the Google Maps. Please try again later.');
 };
 
 var Location = function(params) {
   var self = this;
 
-  this.title = ko.observable(params.title);
-  this.searchTitle = ko.observable(params.title.toLowerCase());
-  this.titleRU = ko.observable();
-  this.category = ko.observable();
-  this.address = ko.observable();
-  this.checkinsCount = ko.observable();
-  this.usersCount = ko.observable();
-  this.tipCount = ko.observable();
-  this.isHidden = ko.observable();
+  self.title = params.title;
+  self.searchTitle = params.title.toLowerCase();
 
   var url = 'https://api.foursquare.com/v2/venues/search?v=20161016&ll='
     + params.lat + ',' + params.lng + '&intent=global&query=' + params.title
@@ -67,34 +60,24 @@ var Location = function(params) {
   $.getJSON(url).done(function(data) {
     var data = data.response.venues[0];
 
-    self.titleRU(data.name);
-    self.category(data.categories[0].shortName);
-    self.address(data.location.formattedAddress.join(', '));
-    self.checkinsCount(data.stats.checkinsCount);
-    self.usersCount(data.stats.usersCount);
-    self.tipCount(data.stats.tipCount);
+    self.titleRU = data.name;
+    self.category = data.categories[0].shortName;
+    self.address = data.location.formattedAddress.join(', ');
+    self.checkinsCount = data.stats.checkinsCount;
+    self.usersCount = data.stats.usersCount;
+    self.tipCount = data.stats.tipCount;
   }).fail(function() {
-    console.error('There was an error occured with the Foursquare API. Please try again later.');
+    alert('There was an error occured with the Foursquare API. Please try again later.');
   });
 
 
-  this.marker = new google.maps.Marker({
+  self.marker = new google.maps.Marker({
     map: map,
     position: new google.maps.LatLng(params.lat, params.lng),
-    title: self.title()
+    title: self.title
   });
 
-  this.setMarker = ko.computed(function() {
-    if(self.isHidden()) {
-      self.marker.setMap(null);
-    } else {
-      self.marker.setMap(map);
-    }
-
-    return true;
-  });
-
-  this.marker.addListener('click', function() {
+  self.marker.addListener('click', function() {
     // close opened infoWindow
     if (openedInfoWindow) {
       openedInfoWindow.close();
@@ -111,16 +94,16 @@ var Location = function(params) {
 
     var infoWindowContentData = [
       '<div class="info-window">',
-        '<h4>', self.title(), '</h4>',
-        '<h4> (', self.titleRU(), ')</h4>',
+        '<h4>', self.title, '</h4>',
+        '<h4> (', self.titleRU, ')</h4>',
         '<p>',
-          self.category(),
+          self.category,
         '</p>',
-        '<p>', self.address(), '</p>',
+        '<p>', self.address, '</p>',
         '<p>',
-          'This place was visited by <strong>', self.usersCount(), '</strong> people, ',
-          'who made <strong>', self.checkinsCount() , '</strong> checkins ',
-          'and <strong>', self.tipCount() ,'</strong> tips.',
+          'This place was visited by <strong>', self.usersCount, '</strong> people, ',
+          'who made <strong>', self.checkinsCount , '</strong> checkins ',
+          'and <strong>', self.tipCount ,'</strong> tips.',
         '</p>',
       '</div>'
     ];
@@ -134,7 +117,7 @@ var Location = function(params) {
     google.maps.event.addListener(infoWindow, 'closeclick', cancelAnimation);
   });
 
-  this.selectLocation = function() {
+  self.selectLocation = function() {
     google.maps.event.trigger(self.marker, 'click');
   };
 
@@ -153,14 +136,13 @@ var AppViewModel = function() {
 
   initData.forEach(function(datum) {
     var location = new Location(datum);
-    location.isHidden(false);
     self.locationsList.push(location);
   });
 
   this.filteredList = ko.computed(function() {
     return this.locationsList().filter(function(location) {
-      var isMatched = location.searchTitle().indexOf(this.searchText().toLowerCase()) !== -1;
-      location.isHidden(!isMatched);
+      var isMatched = location.searchTitle.indexOf(this.searchText().toLowerCase()) !== -1;
+      location.marker.setVisible(isMatched);
 
       return isMatched;
     }, this);
@@ -169,4 +151,4 @@ var AppViewModel = function() {
 
 function init() {
   ko.applyBindings(new AppViewModel());
-};
+}

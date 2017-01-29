@@ -1,7 +1,12 @@
 ## Udacity Neighborhood Map project
+SPA featuring a map and list of some Saint Petersburg sights.
+
+## Demo
+Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 
 ## How to start
-1. Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
+1. Clone this repository https://github.com/RusPosevkin/udacity-neighborhood-map.git
+2. Open index.html in the browser.
 
 ## Resources
 * [Foursquare API](https://developer.foursquare.com/)

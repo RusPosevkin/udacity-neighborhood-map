@@ -3,6 +3,7 @@ SPA featuring a map and list of some Saint Petersburg sights.
 
 ## Demo
 ![Demo animation](https://raw.githubusercontent.com/RusPosevkin/udacity-neighborhood-map/master/Demo.gif "Demo animation")
+
 Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 
 ## How to start

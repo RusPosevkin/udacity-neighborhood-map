@@ -10,6 +10,11 @@ Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 1. Clone this repository https://github.com/RusPosevkin/udacity-neighborhood-map.git
 2. Open index.html in the browser.
 
+## Technologies
+* KnockoutJS
+* Google Maps API
+* Foursquare API
+
 ## Resources
 * [Foursquare API](https://developer.foursquare.com/)
 * [Knockout.js Documentation](http://knockoutjs.com/documentation/introduction.html)

@@ -7,7 +7,10 @@ Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 ![Demo animation](https://raw.githubusercontent.com/RusPosevkin/udacity-neighborhood-map/master/Demo.gif "Demo animation")
 
 ## How to start
-1. Clone this repository https://github.com/RusPosevkin/udacity-neighborhood-map.git
+1. Clone this repository
+  ```bash
+  $> git clone https://github.com/RusPosevkin/udacity-neighborhood-map.git
+  ```
 2. Open index.html in the browser.
 
 ## Technologies

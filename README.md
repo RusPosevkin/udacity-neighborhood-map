@@ -22,3 +22,6 @@ Demo site: https://rusposevkin.github.io/udacity-neighborhood-map/
 * [Foursquare API](https://developer.foursquare.com/)
 * [Knockout.js Documentation](http://knockoutjs.com/documentation/introduction.html)
 * [Google Maps JavaScript API Documentation](https://developers.google.com/maps/documentation/javascript/tutorial)
+
+## License
+[MIT](LICENSE)
